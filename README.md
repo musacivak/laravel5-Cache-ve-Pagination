@@ -3,10 +3,7 @@ Laravel 5 ile sayfalama ve cache özelliği bir arada kullanımı
 
 ## her sayfayı ayrı ayrı cacheleyecektir.
 
-$perCount = '10'; // Sayfa başına gösterilecek veri
-
-//page değerini alıyoruz eğer yoksa 1 olarak set ediyoruz.
-
+        $perCount = '10'; // Sayfa başına gösterilecek veri
         if(Request::get('page'))
         {
             $pagenumber = Request::get('page');
@@ -15,7 +12,6 @@ $perCount = '10'; // Sayfa başına gösterilecek veri
         {
             $pagenumber = 1;
         }
-
         if(!Cache::has('pagination-'.$pagenumber)) Cache::add('pagination-'.$pagenumber,Blog::paginate($perCount),60);
         
         //Cache den veriyi alıyoruz.
