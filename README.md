@@ -23,7 +23,7 @@ $perCount = '10'; // Sayfa başına gösterilecek veri
         $samePost = Cache::get('pagination-'.$pagenumber);
 
 
-        return view('blog.blog-list', ['data' => $samePost, 'pagination' => $samePost]);
+        return view('blog.blog-list', ['data' => $samePost]);
         
 
 ### view de kullanımı
@@ -39,4 +39,4 @@ $perCount = '10'; // Sayfa başına gösterilecek veri
 
 
  <!-- pagination-->
-        {!! str_replace('/?', '?', $pagination->render()) !!}
+        {!! str_replace('/?', '?', $data->render()) !!}
