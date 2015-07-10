@@ -1,0 +1,33 @@
+<!-- View içerisinde örnek kullanım -->
+
+<!--  Foreach içerisinde gelen $data kullanımı   -->
+
+@foreach ($data as $post)
+
+    <!-- post-->
+    <article class="post">
+        <h4><a href="blog/{{ $post->id }}" class="ajax transition2">{{ $post->title }}</a></h4>
+        <ul class="post-meta">
+            <li>{{ $post->created_at }}</li>
+            <li>{{ $post->comment }} yrm</li>
+            <li><i class="fa fa-heart-o"></i> 151</li>
+            <li>
+                <h5>Ekleyen <a href="#">{{ $userauth->username }}</a> / <a href="#">{{  $userauth->authority  }}</a></h5>
+            </li>
+        </ul>
+        <div class="post-media">
+            <a href="#" class="ajax"><img src="images/folio/1.jpg" alt="" class="respimg"></a>
+        </div>
+        <p>{{   $post->description   }}</p>
+        <a href="blog/{{ $post->id }}" class="ajax post-link">Devamı nerede bunun?</a>
+        <ul class="post-tags">
+            <li><a href="#">Design</a></li>
+            <li><a href="#">Video</a></li>
+            <li><a href="#">Photo</a></li>
+        </ul>
+    </article>
+    <!-- post-->
+@endforeach
+
+    <!-- Sayfalamayı burada render ediyoruz-->
+        {!! str_replace('/?', '?', $pagination->render()) !!}
