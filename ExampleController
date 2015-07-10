@@ -1,0 +1,38 @@
+    /**
+     * @author Musa CIVAK.
+     *
+     * @return Response
+     
+     * Controller ayarları
+     */
+    public function index()
+    {
+        //Blog veri çekimi ve Cache ile sayfalama kullanımı
+        
+        // Cache de varsa oradan çekiyorz yoksa yeni oluşturuyoruz.
+        // $dakika değişkeni cache de ne kadar süre kalacağını temsil etmektedir.
+        //blogPost cache in anahtar değeridir burada cache den veri alırken blogPost u kullanacağız.
+        
+        $dakika = 10;
+        $query = Cache::remember('blogPost',$dakika,function(){
+            return Blog::all(); // Tamamını çekmelisiniz burada Eloquent yerine DB:: kullanıyorsanız sonu ->get() ile bitmelidir.
+        });
+
+        // sayfalama methodunu kullanıyoruz "1" her sayfada kaç adet data görüneceğini belirtmektedir.
+        $pagination = Blog::paginate(10);
+
+        // veriyi serialize ediyoruz
+        //currentPage() ve perPage() laravel in sayfalama methoduna özel kullanımlarıdır
+        //Bknz: http://laravel.com/docs/5.1/pagination
+        
+        $query = $query->slice(
+            ($pagination->currentPage()-1)*$pagination->perPage(),
+            $pagination->perPage()
+        );
+
+        // return de view içerisinde $data ve $pagination değerleri ile birlikte gönderiyoruz.
+        //$data verimizi temsil ediyor, view içerisinde verileri listelerken kullanacağz.
+        //$pagination ise sayfalamayı temsil ediyor, sayfalamayı bu veri ile render edeceğiz.
+        
+        return view('blog.blog-list', ['data' => $query, 'pagination' => $pagination]);
+    }
