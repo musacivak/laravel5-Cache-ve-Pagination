@@ -35,4 +35,5 @@ Laravel 5 ile sayfalama ve cache özelliği bir arada kullanımı
 
 
  <!-- pagination-->
+ 
         {!! str_replace('/?', '?', $data->render()) !!}
